@@ -16,8 +16,9 @@ public class JpaConfiguration {
 	@Bean
 	public AuditorAware<?> auditorProvider() {
 		return () -> {
-			var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			var principal = SecurityContextHolder.getContext().getAuthentication();
 
+			System.out.println("principal = " + principal);
 			return principal instanceof DefaultCurrentUser currentUser ?
 				Optional.of(currentUser.getId()) :
 				Optional.empty();
