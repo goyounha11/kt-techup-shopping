@@ -72,7 +72,7 @@ public class Product extends BaseEntity {
 
 	public Product(String name, Long price, Long stock) {
 		Preconditions.validate(Strings.isNotBlank(name), ErrorCode.INVALID_PARAMETER);
-		Preconditions.validate(price >= 0, ErrorCode.INVALID_PARAMETER);
+		Preconditions.validate(price != null && price >= 0, ErrorCode.INVALID_PARAMETER);
 		Preconditions.validate(stock >= 0, ErrorCode.INVALID_PARAMETER);
 
 		this.name = name;
