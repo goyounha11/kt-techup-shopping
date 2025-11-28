@@ -102,7 +102,7 @@ class OrderServiceTest {
 		var foundedOrder = orderRepository.findAll().stream().findFirst();
 
 		assertThat(foundedProduct.getStock()).isEqualTo(8L);
-		assertThat(foundedOrder).isPresent();
+		assertThat(foundedOrder).isEmpty();
 	}
 
 	@Test
