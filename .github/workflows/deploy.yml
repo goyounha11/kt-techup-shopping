@@ -62,6 +62,16 @@ jobs:
           # 멀티모듈 user, admin 모듈이 분리
           # arguments: user:test admin:test
 
+      - name: Run Build
+        uses: gradle/gradle-build-action@v3
+        with:
+          gradle-version: wrapper
+          arguments: zip -x test
+
+      - name: Move Api ZIP
+        run: |
+          mv build/distributions/shopping.zip build/distributions/${{ env.API_ZIP }}
+
       - name: deploy to AWS Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v22
         with:
