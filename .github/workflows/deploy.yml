@@ -15,6 +15,22 @@ jobs:
     steps:
       - uses: actions/checkout@main
 
+      #변수들을 설정
+      - name: set env
+        id: set-envs
+        run: |
+          PROFILE=dev
+          APPLICATION_NAME=dmbz-backend
+          API_ZIP=$APPLICATION_NAME-$PROFILE-$(date +'%Y%m%dT%H%M%S%Z').zip
+          
+          echo "PROJECT_NAME=$PROJECT_NAME" >> $GITHUB_ENV
+          echo "PROFILE=$PROFILE" >> $GITHUB_ENV
+          echo "API_ZIP=$API_ZIP" >> $GITHUB_ENV
+          
+          echo "PROJECT_NAME=$PROJECT_NAME" >> $GITHUB_OUTPUT
+          echo "PROFILE=$PROFILE" >> $GITHUB_OUTPUT
+          echo "API_ZIP=$API_ZIP" >> $GITHUB_OUTPUT
+
       - name: Start Redis
         uses: supercharge/redis-github-action@1.1.0
         with:
@@ -51,11 +67,11 @@ jobs:
         with:
           aws_access_key: ${{ secrets.BACK_END_DEPLOYER_ACCESS_KEY }}
           aws_secret_key: ${{ secrets.BACK_END_DEPLOYER_SECRET_KEY }}
-          application_name: dmbz-dev
-          environment_name: dmbz-dev-env
-          version_label: 추후작성
+          application_name: ${{ env.APPLICATION_NAME }}
+          environment_name: ${{ env.APPLICATION_NAME }}-env
+          version_label: ${{ env.API_ZIP }}
           region: ap-northeast-2
-          deployment_package: build/distributions/어떤.zip
+          deployment_package: build/distributions/${{ env.API_ZIP }}
 
 
       - name: send slack notification
