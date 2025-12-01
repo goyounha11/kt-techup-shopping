@@ -22,14 +22,20 @@ jobs:
           PROFILE=dev
           APPLICATION_NAME=dmbz-backend
           API_ZIP=$APPLICATION_NAME-$PROFILE-$(date +'%Y%m%dT%H%M%S%Z').zip
+          ORIGINAL_ZIP_NAME=shopping.zip
+          DIR=build/distributions
           
           echo "PROJECT_NAME=$PROJECT_NAME" >> $GITHUB_ENV
           echo "PROFILE=$PROFILE" >> $GITHUB_ENV
           echo "API_ZIP=$API_ZIP" >> $GITHUB_ENV
+          echo "ORIGINAL_ZIP_NAME=$ORIGINAL_ZIP_NAME" >> $GITHUB_ENV
+          echo "DIR=$DIR" >> $GITHUB_ENV
           
           echo "PROJECT_NAME=$PROJECT_NAME" >> $GITHUB_OUTPUT
           echo "PROFILE=$PROFILE" >> $GITHUB_OUTPUT
           echo "API_ZIP=$API_ZIP" >> $GITHUB_OUTPUT
+          echo "ORIGINAL_ZIP_NAME=$ORIGINAL_ZIP_NAME" >> $GITHUB_OUTPUT
+          echo "DIR=$DIR" >> $GITHUB_OUTPUT
 
       - name: Start Redis
         uses: supercharge/redis-github-action@1.1.0
@@ -70,7 +76,7 @@ jobs:
 
       - name: Move Api ZIP
         run: |
-          mv build/distributions/shopping.zip build/distributions/${{ env.API_ZIP }}
+          mv ${{ env.DIR }}/${{ env.ORIGINAL_ZIP_NAME }} ${{ env.DIR }}/${{ env.API_ZIP }}
 
       - name: deploy to AWS Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v22
@@ -81,7 +87,7 @@ jobs:
           environment_name: ${{ env.APPLICATION_NAME }}-env
           version_label: ${{ env.API_ZIP }}
           region: ap-northeast-2
-          deployment_package: build/distributions/${{ env.API_ZIP }}
+          deployment_package: ${{ env.DIR }}/${{ env.API_ZIP }}
 
 
       - name: send slack notification
