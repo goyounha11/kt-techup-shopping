@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 
+import com.kt.common.exception.CustomException;
+
 class ProductTest {
 	// 객체 생성이 잘됨?
 	// 제목을 작성하는 2가지 방법
@@ -33,7 +35,7 @@ class ProductTest {
 	@ParameterizedTest
 	@NullAndEmptySource
 	void 상품_생성_실패__상품명_null_이거나_공백(String name) {
-		assertThrowsExactly(IllegalArgumentException.class, () -> new Product(
+		assertThrowsExactly(CustomException.class, () -> new Product(
 			name,
 			100_000L,
 			10L
@@ -42,7 +44,7 @@ class ProductTest {
 
 	@Test
 	void 상품_생성_실패__가격이_음수() {
-		assertThrowsExactly(IllegalArgumentException.class, () -> new Product(
+		assertThrowsExactly(CustomException.class, () -> new Product(
 			"테스트 상품명",
 			-1L,
 			10L
@@ -51,7 +53,7 @@ class ProductTest {
 
 	@Test
 	void 상품_생성_실패__가격이_null() {
-		assertThrowsExactly(IllegalArgumentException.class, () -> new Product(
+		assertThrowsExactly(CustomException.class, () -> new Product(
 			"테스트 상품명",
 			null,
 			10L

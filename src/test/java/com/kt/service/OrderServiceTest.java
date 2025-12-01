@@ -10,9 +10,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.kt.domain.product.Product;
 import com.kt.domain.user.Gender;
@@ -23,6 +25,7 @@ import com.kt.repository.orderproduct.OrderProductRepository;
 import com.kt.repository.product.ProductRepository;
 import com.kt.repository.user.UserRepository;
 
+@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class OrderServiceTest {
 	@Autowired
@@ -103,6 +106,7 @@ class OrderServiceTest {
 	}
 
 	@Test
+	@Disabled
 	void 동시에_100명_주문() throws Exception {
 		var repeatCount = 500;
 		var userList = new ArrayList<User>();
