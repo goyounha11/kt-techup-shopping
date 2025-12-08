@@ -38,6 +38,9 @@ dependencies {
 
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
 
+    implementation("io.netty:netty-resolver-dns-native-macos:4.1.117.Final:osx-aarch_64")
+    implementation("io.netty:netty-resolver-dns:4.1.117.Final")
+
     implementation 'io.jsonwebtoken:jjwt-api:0.13.0'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.13.0'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.13.0'
