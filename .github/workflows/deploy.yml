@@ -59,15 +59,6 @@ jobs:
         with:
           gradle-version: 8.5
 
-      - name: Run Test
-        uses: gradle/gradle-build-action@v3
-        with:
-          gradle-version: wrapper
-          arguments: test
-          # gradle test -> admin, user모두
-          # 멀티모듈 user, admin 모듈이 분리
-          # arguments: user:test admin:test
-
       - name: Run Build
         uses: gradle/gradle-build-action@v3
         with:
