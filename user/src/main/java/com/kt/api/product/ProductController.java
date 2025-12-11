@@ -1,4 +1,4 @@
-package com.kt.controller.product;
+package com.kt.api.product;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;

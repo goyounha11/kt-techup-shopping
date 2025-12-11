@@ -1,4 +1,4 @@
-package com.kt.controller.user;
+package com.kt.api;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;

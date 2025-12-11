@@ -1,4 +1,4 @@
-package com.kt.controller.order;
+package com.kt.api.order;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,4 +1,4 @@
-package com.kt.controller.order;
+package com.kt.api;
 
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;

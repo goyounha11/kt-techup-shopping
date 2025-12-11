@@ -1,4 +1,4 @@
-package com.kt.controller.user;
+package com.kt.api.user;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
