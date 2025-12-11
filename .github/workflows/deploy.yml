@@ -59,17 +59,38 @@ jobs:
         with:
           gradle-version: 8.5
 
-      - name: Run Build
+      - name: Run Admin Build
         uses: gradle/gradle-build-action@v3
         with:
           gradle-version: wrapper
-          arguments: zip -x test
+          arguments: admin:zip -x test
 
-      - name: Move Api ZIP
+      - name: Run User Build
+        uses: gradle/gradle-build-action@v3
+        with:
+          gradle-version: wrapper
+          arguments: user:zip -x test
+
+      - name: Move Admin Api ZIP
         run: |
           mv ${{ env.DIR }}/${{ env.ORIGINAL_ZIP_NAME }} ${{ env.DIR }}/${{ env.API_ZIP }}
 
-      - name: deploy to AWS Elastic Beanstalk
+      - name: Move User Api ZIP
+        run: |
+          mv ${{ env.DIR }}/${{ env.ORIGINAL_ZIP_NAME }} ${{ env.DIR }}/${{ env.API_ZIP }}
+
+      - name: admin deploy to AWS Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v22
+        with:
+          aws_access_key: ${{ secrets.BACK_END_DEPLOYER_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.BACK_END_DEPLOYER_SECRET_KEY }}
+          application_name: ${{ env.APPLICATION_NAME }}
+          environment_name: ${{ env.APPLICATION_NAME }}-env
+          version_label: ${{ env.API_ZIP }}
+          region: ap-northeast-2
+          deployment_package: ${{ env.DIR }}/${{ env.API_ZIP }}
+
+      - name: user deploy to AWS Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v22
         with:
           aws_access_key: ${{ secrets.BACK_END_DEPLOYER_ACCESS_KEY }}

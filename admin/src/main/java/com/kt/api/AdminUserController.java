@@ -18,7 +18,7 @@ import com.kt.common.support.SwaggerAssistance;
 import com.kt.dto.user.UserResponse;
 import com.kt.dto.user.UserUpdateRequest;
 import com.kt.security.CurrentUser;
-import com.kt.service.UserService;
+import com.kt.service.user.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

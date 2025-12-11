@@ -2,13 +2,11 @@ package com.kt.service.user;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kt.common.exception.ErrorCode;
 import com.kt.domain.user.User;
-import com.kt.repository.order.OrderRepository;
 import com.kt.repository.user.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -23,8 +21,6 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class UserService {
 	private final UserRepository userRepository;
-	private final PasswordEncoder passwordEncoder;
-	private final OrderRepository orderRepository;
 
 	// Pageable 인터페이스
 	public Page<User> search(Pageable pageable, String keyword) {
@@ -39,6 +35,5 @@ public class UserService {
 		var user = userRepository.findByIdOrThrow(id, ErrorCode.NOT_FOUND_USER);
 
 		user.update(name, email, mobile);
-	}
 	}
 }
