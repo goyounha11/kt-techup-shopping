@@ -30,7 +30,7 @@ jobs:
         run: |
           PROFILE=dev
           MODULE=${{ matrix.MODULE }}
-          APPLICATION_NAME=dmbz1
+          APPLICATION_NAME=dmbz-dev
           API_ZIP=$APPLICATION_NAME-$MODULE-$PROFILE-$(date +'%Y%m%dT%H%M%S%Z').zip
           ORIGINAL_ZIP_NAME=shopping-$MODULE.zip
           DIR=$MODULE/build/distributions
