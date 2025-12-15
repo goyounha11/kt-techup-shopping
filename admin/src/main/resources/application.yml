@@ -29,6 +29,12 @@ spring:
         nodes: ${redis.host:localhost:6379}
         max-redirects: 3
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 jwt:
   secret: ${kt.jwt.secret:1234567890123456789012345678901234} #32자 이상
   access-token-expiration: ${kt.jwt.access-token-expiration:300000} #5분
