@@ -27,11 +27,13 @@
     <!--        </encoder>-->
     <!--    </appender>-->
 
+    <springProperty name="APP_NAME" source="spring.application.name" defaultValue="none"/>
+
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <destination>${LOGSTASH_HOST}:${LOGSTASH_PORT}</destination>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
             <customFields>
-                {"app":"techup-shopping-user","env":"${spring.profiles.active}"}
+                {"app":"${APP_NAME}","env":"${spring.profiles.active}"}
             </customFields>
         </encoder>
     </appender>
