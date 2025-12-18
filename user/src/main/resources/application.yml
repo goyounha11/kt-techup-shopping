@@ -54,5 +54,10 @@ management:
 slack:
   bot-token: ${slack.token:1234}
   log-channel: ${slack.channel:1234}
+
+logstash:
+  host: ${logstashhost:localhost}
+  port: ${logstashport:9601}
+
 server:
   port: 8081

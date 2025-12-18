@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- logback-spring.xml -->
+<configuration>
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %magenta(%-4relative) --- [ %thread{10} ] %cyan(%logger{20}) : %msg%n"/>
+    <springProperty name="LOGSTASH_HOST" source="logstash.host" defaultValue="localhost"/>
+    <springProperty name="LOGSTASH_PORT" source="logstash.port" defaultValue="9601"/>
+
+    <!--    <springProfile name="local">-->
+    <!--        <property name="LOGSTASH_HOST" value="localhost"/>-->
+    <!--        <property name="LOGSTASH_PORT" value="9601"/>-->
+    <!--    </springProfile>-->
+
+    <!--    <springProfile name="dev">-->
+    <!--        <property name="LOGSTASH_HOST" value="dev의호스트 주소"/>-->
+    <!--        <property name="LOGSTASH_PORT" value="9601"/>-->
+    <!--    </springProfile>-->
+
+    <!--    <springProfile name="prod">-->
+    <!--        <property name="LOGSTASH_HOST" value="prod의호스트 주소"/>-->
+    <!--        <property name="LOGSTASH_PORT" value="9601"/>-->
+    <!--    </springProfile>-->
+
+    <!--    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">-->
+    <!--        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
+    <!--            <pattern>${CONSOLE_LOG_PATTERN}</pattern>-->
+    <!--        </encoder>-->
+    <!--    </appender>-->
+
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>${LOGSTASH_HOST}:${LOGSTASH_PORT}</destination>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>
+                {"app":"techup-shopping-user","env":"${spring.profiles.active}"}
+            </customFields>
+        </encoder>
+    </appender>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!--    <springProfile name="local">-->
+    <!--        <root level="INFO">-->
+    <!--            <appender-ref ref="LOGSTASH"/>-->
+    <!--            <appender-ref ref="CONSOLE"/>-->
+    <!--        </root>-->
+    <!--    </springProfile>-->
+
+    <!--    <springProfile name="dev">-->
+    <!--        <root level="INFO">-->
+    <!--            <appender-ref ref="LOGSTASH"/>-->
+    <!--            <appender-ref ref="CONSOLE"/>-->
+    <!--        </root>-->
+    <!--    </springProfile>-->
+    <root level="INFO">
+        <appender-ref ref="LOGSTASH"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>

@@ -30,7 +30,6 @@ public class RedisConfiguration {
 	// 100개의 요청을처리하는데 100*5 = 500초가 걸릴수도?
 
 	@Bean
-	@DevProfile
 	@AppProfile
 	public RedissonClient redissonClient() {
 		var config = new Config();
@@ -46,6 +45,7 @@ public class RedisConfiguration {
 
 	@Bean
 	@LocalProfile
+	@DevProfile
 	public RedissonClient localRedissonClient() {
 		var config = new Config();
 		var host = redisProperties.getCluster().getNodes().getFirst();
