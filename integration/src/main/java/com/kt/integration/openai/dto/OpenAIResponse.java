@@ -18,11 +18,25 @@ public class OpenAIResponse {
 	}
 
 	public record FileCounts(
-		int in_progress,
+		@JsonProperty("in_progress")
+		int inProgress,
 		int completed,
 		int failed,
 		int cancelled,
 		int total
+	) {
+	}
+
+	public record Upload(
+		String id,
+		String object,
+		Long bytes,
+		@JsonProperty("created_at")
+		Long createdAt,
+		@JsonProperty("expires_at")
+		Long expiresAt,
+		String filename,
+		String purpose
 	) {
 	}
 }
