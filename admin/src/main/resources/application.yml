@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: classpath:integration.yml
   application:
     name: shopping-admin-api
 

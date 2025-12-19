@@ -1,7 +1,8 @@
-package com.kt.domain.faq;
+package com.kt.domain.vector;
 
 import com.kt.common.support.BaseEntity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -9,13 +10,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
 @Entity
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FAQ extends BaseEntity {
-	private String title;
-	private String content;
+public class Vector extends BaseEntity {
+	@Column(unique = true)
 	@Enumerated(EnumType.STRING)
-	private Category category;
+	private VectorType type;
+	private String storeId;
+	private String description;
+	private String name;
 }

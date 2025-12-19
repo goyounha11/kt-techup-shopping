@@ -1,5 +1,7 @@
 
 spring:
+  config:
+    import: classpath:integration.yml
   application:
     name: shopping-user-api
 
