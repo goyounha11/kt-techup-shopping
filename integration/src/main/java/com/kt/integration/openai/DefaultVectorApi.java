@@ -22,11 +22,12 @@ import lombok.RequiredArgsConstructor;
 public class DefaultVectorApi implements VectorApi {
 	private final OpenAIClient openAIClient;
 	private final OpenAIProperties openAIProperties;
+	private final String token = "Bearer " + openAIProperties.apiKey();
 
 	@Override
 	public String create(String name, String description) {
 		var response = openAIClient.create(
-			String.format("Bearer %s", openAIProperties.apiKey()),
+			token,
 			new OpenAIRequest.VectorCreate(name, description)
 		);
 		return response.id();
@@ -49,13 +50,13 @@ public class DefaultVectorApi implements VectorApi {
 		map.add("file", fileResource);
 
 		var response = openAIClient.upload(
-			String.format("Bearer %s", openAIProperties.apiKey()),
+			token,
 			map
 		);
 
 		openAIClient.uploadVectorStore(
 			vectorStoreId,
-			String.format("Bearer %s", openAIProperties.apiKey()),
+			token,
 			new OpenAIRequest.UploadFile(response.id())
 		);
 
@@ -67,12 +68,12 @@ public class DefaultVectorApi implements VectorApi {
 		openAIClient.delete(
 			vectorStoreId,
 			fileId,
-			String.format("Bearer %s", openAIProperties.apiKey())
+			token
 		);
 
 		openAIClient.deleteFile(
 			fileId,
-			String.format("Bearer %s", openAIProperties.apiKey())
+			token
 		);
 	}
 }

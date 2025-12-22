@@ -14,4 +14,9 @@ public class OpenAIRequest {
 		String id
 	) {
 	}
+
+	public record Search(
+		String query
+	) {
+	}
 }

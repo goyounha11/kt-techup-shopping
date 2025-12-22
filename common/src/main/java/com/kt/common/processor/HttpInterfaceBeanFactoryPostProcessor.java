@@ -21,6 +21,8 @@ import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.annotation.HttpExchange;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
+import com.kt.common.interceptor.SimpleApiLoggingInterceptor;
+
 @Component
 public class HttpInterfaceBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 	private static final String BASE_PACKAGE = "com.kt";
@@ -35,6 +37,7 @@ public class HttpInterfaceBeanFactoryPostProcessor implements BeanFactoryPostPro
 			.filter(it -> StringUtils.hasText(it.getBeanClassName()))
 			.forEach(it -> {
 				var restClientBuilder = RestClient.builder()
+					.requestInterceptor(new SimpleApiLoggingInterceptor())
 					.messageConverters(converters -> {
 						var stringConverter = beanFactory.getBean(StringHttpMessageConverter.class);
 						converters.add(stringConverter);

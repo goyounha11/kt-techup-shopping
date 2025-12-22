@@ -45,4 +45,12 @@ public interface OpenAIClient {
 		@PathVariable("file_id") String fileId,
 		@RequestHeader("Authorization") String authorization
 	);
+
+	@PostExchange("/vector_stores/{vector_store_id}/search")
+	OpenAIResponse.Search search(
+		@PathVariable("vector_store_id") String vectorStoreId,
+		@RequestHeader("Authorization") String authorization,
+		@RequestBody OpenAIRequest.Search request
+	);
+
 }
